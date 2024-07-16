@@ -1,6 +1,6 @@
 import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
-
+import { Helmet } from 'react-helmet-async';
 type MainProps = {
   offersCount: number;
 }
@@ -8,6 +8,9 @@ type MainProps = {
 function Main({offersCount}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
