@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Offer } from '../../types/offer.ts';
 
 type OfferCardProps = {
@@ -5,11 +6,19 @@ type OfferCardProps = {
 }
 
 function OfferCard({offer}: OfferCardProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState({});
   const bookmarkButtonClass = offer.isFavorite ?
     'place-card__bookmark-button button place-card__bookmark-button--active button'
     : 'place-card__bookmark-button button';
   return(
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" id={`offer-${offer.id}`}
+      onMouseOver={() => {
+        setActiveCard({
+          ...activeCard,
+          id: offer.id,
+        });
+      }}
+    >
       {offer.isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
