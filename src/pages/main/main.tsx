@@ -5,9 +5,10 @@ import OfferCards from '../../components/offer-card/offer-cards';
 
 type MainProps = {
   offers: Offer[];
+  onClick: (id: string) => void;
 }
 
-function Main({offers}: MainProps): JSX.Element {
+function Main({offers, onClick}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -98,7 +99,11 @@ function Main({offers}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OfferCards offers={offers} />
+              <OfferCards
+                offers={offers}
+                onClick={onClick}
+                isFavorites={false}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

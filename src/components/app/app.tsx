@@ -8,19 +8,33 @@ import PageNotFound from '../../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
+import { useState } from 'react';
 
 type AppProps = {
   offers: Offer[];
 }
 
 function App({offers}: AppProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<Offer>({} as Offer);
+  const offerClickHandler = (id: string) => {
+    setActiveCard({
+      ...activeCard,
+      id: id
+    });
+  };
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Main offers={offers} />}
+            element={
+              <Main
+                offers={offers}
+                onClick={offerClickHandler}
+              />
+            }
           />
           <Route
             path={AppRoute.Login}
@@ -28,15 +42,26 @@ function App({offers}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<OfferPage />}
-          />
+          >
+            <Route
+              path={AppRoute.OfferId}
+              element={
+                <OfferPage
+                  offers={offers}
+                />
+              }
+            />
+          </Route>
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
-                <Favorites />
+                <Favorites
+                  offers={offers}
+                  onClick={offerClickHandler}
+                />
               </PrivateRoute>
             }
           />
