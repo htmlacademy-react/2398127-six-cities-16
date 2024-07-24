@@ -2,17 +2,19 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
-import Offer from '../../pages/offer/offer';
+import OfferPage from '../../pages/offerPage/offerPage';
 import Favorites from '../../pages/favorites/favorites';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import { Offer } from '../../types/offer';
 
 type AppProps = {
   offersCount: number;
+  offers: Offer[];
 }
 
-function App({offersCount}: AppProps): JSX.Element {
+function App({offersCount, offers}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -27,7 +29,7 @@ function App({offersCount}: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Offer}
-            element={<Offer />}
+            element={<OfferPage />}
           />
           <Route
             path={AppRoute.Favorites}
