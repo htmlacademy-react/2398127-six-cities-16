@@ -1,11 +1,14 @@
-import OfferCard from '../../components/offer-card/offer-card';
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
+import { Offer } from '../../types/offer';
+import OfferCards from '../../components/offer-card/offer-cards';
+
 type MainProps = {
-  offersCount: number;
+  offers: Offer[];
+  offerMouseOverHandler: (id: string) => void;
 }
 
-function Main({offersCount}: MainProps): JSX.Element {
+function Main({offers, offerMouseOverHandler}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -80,7 +83,7 @@ function Main({offersCount}: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">312 places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -96,13 +99,11 @@ function Main({offersCount}: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-                <OfferCard />
-              </div>
+              <OfferCards
+                offers={offers}
+                offerMouseOverHandler={offerMouseOverHandler}
+                isFavorites={false}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

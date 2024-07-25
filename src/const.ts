@@ -2,7 +2,8 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id'
+  Offer = '/offer',
+  OfferId = ':id',
 }
 
 export enum AuthorizationStatus {
@@ -10,3 +11,5 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const RAITING = [1, 2, 3, 4, 5];
