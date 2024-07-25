@@ -10,9 +10,12 @@ type OfferCardsProps = {
 
 function OfferCards({offers, offerMouseOverHandler, isFavorites}: OfferCardsProps): JSX.Element {
   if (isFavorites) {
+    const filteredOffers = offers.filter((offer) => offer.isFavorite);
     return (
       <div className="favorites__places">
-        {offers.map((offer) => offer.isFavorite ? <OfferCardFavorite key={offer.id} offer={offer} offerMouseOverHandler={offerMouseOverHandler}/> : '')}
+        {
+          filteredOffers.map((offer) => <OfferCardFavorite key={offer.id} offer={offer} offerMouseOverHandler={offerMouseOverHandler}/>)
+        }
       </div>
     );
   }
