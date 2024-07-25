@@ -1,24 +1,18 @@
-import { useState } from 'react';
 import { Offer } from '../../types/offer.ts';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
 
 type OfferCardProps = {
   offer: Offer;
-  onClick: (id: string) => void;
+  offerMouseOverHandler: (id: string) => void;
 }
 
-function OfferCard({offer, onClick}: OfferCardProps): JSX.Element {
+function OfferCard({offer, offerMouseOverHandler}: OfferCardProps): JSX.Element {
   const {id, title, type, price, image, isFavorite, isPremium} = offer;
-  const [activeCard, setActiveCard] = useState<Offer>({} as Offer);
   return(
-    <article className="cities__card place-card" id={`offer-${offer.id}`}
+    <article className="cities__card place-card" id={`offer-${id}`}
       onMouseOver={() => {
-        setActiveCard({
-          ...activeCard,
-          id: id,
-        });
-        onClick(activeCard.id);
+        offerMouseOverHandler(id);
       }}
     >
       {isPremium ?

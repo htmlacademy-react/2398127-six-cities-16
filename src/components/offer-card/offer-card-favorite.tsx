@@ -1,24 +1,18 @@
-import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type OfferCardFavoriteProps = {
   offer: Offer;
-  onClick: (id: string) => void;
+  offerMouseOverHandler: (id: string) => void;
 }
 
-function OfferCardFavorite({offer, onClick} : OfferCardFavoriteProps): JSX.Element {
+function OfferCardFavorite({offer, offerMouseOverHandler} : OfferCardFavoriteProps): JSX.Element {
   const {id, title, type, price, image, isFavorite, isPremium} = offer;
-  const [activeCard, setActiveCard] = useState<Offer>({} as Offer);
   return (
     <article className="favorites__card place-card" id={`offer-${id}`}
       onMouseOver={() => {
-        setActiveCard({
-          ...activeCard,
-          id: offer.id,
-        });
-        onClick(activeCard.id);
+        offerMouseOverHandler(id);
       }}
     >
       {isPremium ?

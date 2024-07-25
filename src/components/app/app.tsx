@@ -15,8 +15,8 @@ type AppProps = {
 }
 
 function App({offers}: AppProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<Offer>({} as Offer);
-  const offerClickHandler = (id: string) => {
+  const [activeCard, setActiveCard] = useState({id: '0'});
+  const offerMouseOverHandler = (id: string) => {
     setActiveCard({
       ...activeCard,
       id: id
@@ -32,7 +32,7 @@ function App({offers}: AppProps): JSX.Element {
             element={
               <Main
                 offers={offers}
-                onClick={offerClickHandler}
+                offerMouseOverHandler={offerMouseOverHandler}
               />
             }
           />
@@ -60,7 +60,7 @@ function App({offers}: AppProps): JSX.Element {
               >
                 <Favorites
                   offers={offers}
-                  onClick={offerClickHandler}
+                  offerMouseOverHandler ={offerMouseOverHandler }
                 />
               </PrivateRoute>
             }

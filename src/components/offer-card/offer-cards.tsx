@@ -4,21 +4,21 @@ import OfferCardFavorite from './offer-card-favorite.tsx';
 
 type OfferCardsProps = {
   offers: Offer[];
-  onClick: (id: string) => void;
+  offerMouseOverHandler: (id: string) => void;
   isFavorites: boolean;
 }
 
-function OfferCards({offers, onClick, isFavorites}: OfferCardsProps): JSX.Element {
+function OfferCards({offers, offerMouseOverHandler, isFavorites}: OfferCardsProps): JSX.Element {
   if (isFavorites) {
     return (
       <div className="favorites__places">
-        {offers.map((offer) => offer.isFavorite ? <OfferCardFavorite key={offer.id} offer={offer} onClick={onClick}/> : '')}
+        {offers.map((offer) => offer.isFavorite ? <OfferCardFavorite key={offer.id} offer={offer} offerMouseOverHandler={offerMouseOverHandler}/> : '')}
       </div>
     );
   }
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} onClick={onClick}/>)}
+      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} offerMouseOverHandler={offerMouseOverHandler}/>)}
     </div>
   );
 }

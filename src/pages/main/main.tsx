@@ -5,10 +5,10 @@ import OfferCards from '../../components/offer-card/offer-cards';
 
 type MainProps = {
   offers: Offer[];
-  onClick: (id: string) => void;
+  offerMouseOverHandler: (id: string) => void;
 }
 
-function Main({offers, onClick}: MainProps): JSX.Element {
+function Main({offers, offerMouseOverHandler}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -101,7 +101,7 @@ function Main({offers, onClick}: MainProps): JSX.Element {
               </form>
               <OfferCards
                 offers={offers}
-                onClick={onClick}
+                offerMouseOverHandler={offerMouseOverHandler}
                 isFavorites={false}
               />
             </section>
