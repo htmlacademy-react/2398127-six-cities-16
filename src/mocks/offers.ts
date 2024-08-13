@@ -10,7 +10,12 @@ export const offers: Offer [] = [
     isFavorite: true,
     isPremium: true,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 13
+      }
     },
   },
 
@@ -24,7 +29,12 @@ export const offers: Offer [] = [
     isFavorite: false,
     isPremium: true,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
+        zoom: 16
+      }
     },
   },
 
@@ -38,7 +48,12 @@ export const offers: Offer [] = [
     isFavorite: false,
     isPremium: false,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 13
+      }
     },
   },
 
@@ -52,7 +67,12 @@ export const offers: Offer [] = [
     isFavorite: true,
     isPremium: false,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 13
+      }
     },
   },
 ];

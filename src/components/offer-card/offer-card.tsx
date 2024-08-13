@@ -1,19 +1,21 @@
 import { Offer } from '../../types/offer.ts';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const.ts';
-
 type OfferCardProps = {
   offer: Offer;
-  offerMouseOverHandler: (id: string) => void;
+  cardClickHandler: (id: string) => void;
+  cardHoverHandler: (offerElement: Offer) => void;
 }
 
-function OfferCard({offer, offerMouseOverHandler}: OfferCardProps): JSX.Element {
+function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
   const {id, title, type, price, image, isFavorite, isPremium} = offer;
+
   return(
     <article className="cities__card place-card" id={`offer-${id}`}
-      onMouseOver={() => {
-        offerMouseOverHandler(id);
+      onClick={() => {
+        cardClickHandler(id);
       }}
+      onMouseEnter={() => cardHoverHandler(offer)}
     >
       {isPremium ?
         <div className="place-card__mark">
