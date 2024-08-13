@@ -1,16 +1,16 @@
-import { Offer } from '../../types/offer.ts';
+import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const.ts';
+import { AppRoute } from '../../const';
 
-type OfferCardProps = {
+type OfferCardFavoriteProps = {
   offer: Offer;
   offerMouseOverHandler: (id: string) => void;
 }
 
-function OfferCard({offer, offerMouseOverHandler}: OfferCardProps): JSX.Element {
+function OfferCardFavorite({offer, offerMouseOverHandler} : OfferCardFavoriteProps): JSX.Element {
   const {id, title, type, price, image, isFavorite, isPremium} = offer;
-  return(
-    <article className="cities__card place-card" id={`offer-${id}`}
+  return (
+    <article className="favorites__card place-card" id={`offer-${id}`}
       onMouseOver={() => {
         offerMouseOverHandler(id);
       }}
@@ -19,21 +19,19 @@ function OfferCard({offer, offerMouseOverHandler}: OfferCardProps): JSX.Element 
         <div className="place-card__mark">
           <span>Premium</span>
         </div> : ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={image} width="150" height="110" alt="Place image" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={`place-card__bookmark-button button
-            ${isFavorite ?
-      'place-card__bookmark-button--active'
-      : ''}`} type="button"
+            ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -43,12 +41,7 @@ function OfferCard({offer, offerMouseOverHandler}: OfferCardProps): JSX.Element 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span
-              style={{
-                width: '80%',
-              }}
-            >
-            </span>
+            <span style={{width: '100%'}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -63,4 +56,4 @@ function OfferCard({offer, offerMouseOverHandler}: OfferCardProps): JSX.Element 
   );
 }
 
-export default OfferCard;
+export default OfferCardFavorite;
