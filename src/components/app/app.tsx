@@ -16,11 +16,18 @@ type AppProps = {
 
 function App({offers}: AppProps): JSX.Element {
   const [activeCard, setActiveCard] = useState({id: '0'});
-  const offerMouseOverHandler = (id: string) => {
+  const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
+  const cardClickHandler = (id: string) => {
     setActiveCard({
       ...activeCard,
       id: id
     });
+  };
+  const cardHoverHandler = (offerElement: Offer) => {
+    const currentPoint = offers.find((offer) =>
+      offer.title === offerElement.title,
+    );
+    setSelectedCard(currentPoint);
   };
 
   return (
@@ -32,7 +39,9 @@ function App({offers}: AppProps): JSX.Element {
             element={
               <Main
                 offers={offers}
-                offerMouseOverHandler={offerMouseOverHandler}
+                cardClickHandler={cardClickHandler}
+                cardHoverHandler={cardHoverHandler}
+                selectedCard={selectedCard}
               />
             }
           />
@@ -60,7 +69,8 @@ function App({offers}: AppProps): JSX.Element {
               >
                 <Favorites
                   offers={offers}
-                  offerMouseOverHandler ={offerMouseOverHandler }
+                  cardClickHandler ={cardClickHandler }
+                  cardHoverHandler ={cardHoverHandler}
                 />
               </PrivateRoute>
             }

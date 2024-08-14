@@ -5,10 +5,11 @@ import OfferCards from '../../components/offer-card/offer-cards';
 
 type FavoritesProps = {
   offers: Offer[];
-  offerMouseOverHandler: (id: string) => void;
+  cardClickHandler: (id: string) => void;
+  cardHoverHandler: (offerElement: Offer) => void;
 }
 
-function Favorites({offers, offerMouseOverHandler}: FavoritesProps): JSX.Element {
+function Favorites({offers, cardClickHandler, cardHoverHandler}: FavoritesProps): JSX.Element {
   return(
     <div className="page">
       <Helmet>
@@ -54,7 +55,7 @@ function Favorites({offers, offerMouseOverHandler}: FavoritesProps): JSX.Element
                     </a>
                   </div>
                 </div>
-                <OfferCards offers={offers} offerMouseOverHandler={offerMouseOverHandler} isFavorites/>
+                <OfferCards offers={offers} cardClickHandler={cardClickHandler} cardHoverHandler={cardHoverHandler} isFavorites/>
 
               </li>
 
