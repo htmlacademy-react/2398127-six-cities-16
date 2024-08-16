@@ -7,9 +7,10 @@ type OfferCardsProps = {
   cardClickHandler: (id: string) => void;
   cardHoverHandler: (offerElement: Offer) => void;
   isFavorites: boolean;
+  className?: string;
 }
 
-function OfferCards({offers, cardClickHandler, cardHoverHandler, isFavorites}: OfferCardsProps): JSX.Element {
+function OfferCards({offers, cardClickHandler, cardHoverHandler, isFavorites, className}: OfferCardsProps): JSX.Element {
   if (isFavorites) {
     const filteredOffers = offers.filter((offer) => offer.isFavorite);
     return (
@@ -21,8 +22,17 @@ function OfferCards({offers, cardClickHandler, cardHoverHandler, isFavorites}: O
     );
   }
   return (
-    <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <OfferCard key={offer.id} offer={offer} cardClickHandler={cardClickHandler} cardHoverHandler={cardHoverHandler}/>)}
+    <div
+      className={className}
+    >
+      {offers.map((offer) => (
+        <OfferCard
+          key={offer.id}
+          offer={offer}
+          cardClickHandler={cardClickHandler}
+          cardHoverHandler={cardHoverHandler}
+        />
+      ))}
     </div>
   );
 }

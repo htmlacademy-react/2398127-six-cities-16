@@ -55,7 +55,7 @@ function Favorites({offers, cardClickHandler, cardHoverHandler}: FavoritesProps)
                     </a>
                   </div>
                 </div>
-                <OfferCards offers={offers} cardClickHandler={cardClickHandler} cardHoverHandler={cardHoverHandler} isFavorites/>
+                <OfferCards offers={offers} cardClickHandler={cardClickHandler} cardHoverHandler={cardHoverHandler} isFavorites />
 
               </li>
 
