@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import CommentList from '../../components/comments/comments-list';
 import OfferCards from '../../components/offer-card/offer-cards';
 import Map from '../../components/map/map.tsx';
-import {city, OffersClassName} from '../../const.ts';
+import {Cities, OffersClassName} from '../../const.ts';
 
 type OfferPageProps = {
   offers: Offer[];
@@ -175,7 +175,7 @@ function OfferPage({offers, selectedCard, cardClickHandler, cardHoverHandler}: O
           </div>
           <section className="offer__map map">
             <Map
-              city={city}
+              city={Cities.AMSTERDAM}
               points={NearOffers}
               selectedCard={selectedCard}
             />
