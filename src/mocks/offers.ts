@@ -105,7 +105,7 @@ export const offers: Offer [] = [
     isFavorite: true,
     isPremium: false,
     city: {
-      name: 'Amsterdam',
+      name: 'Dusseldorf',
       location: {
         latitude: 52.3809553943510,
         longitude: 4.939309666406198,

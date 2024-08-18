@@ -4,7 +4,7 @@ import { Cities } from '../const.ts';
 import { changeCity, fillOffers } from './action.ts';
 
 const initialState = {
-  city: Cities.AMSTERDAM,
+  city: Cities.PARIS,
   offers: offers
 };
 
