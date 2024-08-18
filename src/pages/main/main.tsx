@@ -1,8 +1,9 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
-import { City, Offer} from '../../types/offer';
+import {Offer} from '../../types/offer';
 import OfferCards from '../../components/offer-card/offer-cards';
 import Map from '../../components/map/map.tsx';
+import {city, OffersClassName} from '../../const.ts';
 
 type MainProps = {
   offers: Offer[];
@@ -12,14 +13,6 @@ type MainProps = {
 }
 
 function Main({offers, cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JSX.Element {
-  const cityRef: City = {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
-      zoom: 13
-    }
-  };
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -115,12 +108,13 @@ function Main({offers, cardClickHandler, cardHoverHandler, selectedCard}: MainPr
                 cardClickHandler={cardClickHandler}
                 cardHoverHandler={cardHoverHandler}
                 isFavorites={false}
+                className={OffersClassName.DEFAULT}
               />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  city={cityRef}
+                  city={city}
                   points={offers}
                   selectedCard={selectedCard}
                 />

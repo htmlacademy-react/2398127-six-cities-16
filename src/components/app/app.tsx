@@ -57,6 +57,9 @@ function App({offers}: AppProps): JSX.Element {
               element={
                 <OfferPage
                   offers={offers}
+                  cardHoverHandler={cardHoverHandler}
+                  cardClickHandler={cardClickHandler}
+                  selectedCard={selectedCard}
                 />
               }
             />
