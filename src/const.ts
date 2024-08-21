@@ -75,3 +75,10 @@ export const OffersClassName = {
   DEFAULT: 'cities__places-list places__list tabs__content',
   NEAR: 'near-places__list places__list'
 };
+
+export const Sorts = {
+  POPULAR: 'Popular',
+  PRICE_LOW_TO_HIGH: 'Price: low to high',
+  PRICE_HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED_FIRST: 'Top rated first'
+};

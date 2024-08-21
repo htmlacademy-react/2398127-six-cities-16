@@ -6,24 +6,25 @@ import Map from '../../components/map/map.tsx';
 import {OffersClassName, AppRoute} from '../../const.ts';
 import { store } from '../../store/index.ts';
 import CitiesList from '../../components/cities-list/cities-list.tsx';
-import { changeCity } from '../../store/action.ts';
+import { changeCity, resetSorting } from '../../store/action.ts';
 import { useAppDispatch } from '../../components/hooks/index.ts';
 import { useNavigate } from 'react-router-dom';
+import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
 
 type MainProps = {
-  offers: Offer[];
   cardClickHandler: (id: string) => void;
   cardHoverHandler: (offerElement: Offer) => void;
   selectedCard: Offer | undefined;
 }
 
-function Main({offers, cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JSX.Element {
+function Main({cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentCity = store.getState().city;
-  const cityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const cityOffers = store.getState().offers.filter((offer) => offer.city.name === currentCity.name);
   const cityClickHandler = (city: City) => {
     dispatch(changeCity(city));
+    dispatch(resetSorting());
     navigate(AppRoute.Root);
   };
   return (
@@ -70,21 +71,7 @@ function Main({offers, cardClickHandler, cardHoverHandler, selectedCard}: MainPr
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{cityOffers.length} places to stay in {currentCity.name}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <SortingOptions />
               <OfferCards
                 offers={cityOffers}
                 cardClickHandler={cardClickHandler}

@@ -18,6 +18,8 @@ function OfferPage({offers, selectedCard, cardClickHandler, cardHoverHandler}: O
   const offer = offers.find((element) => element.id === id);
   const { title, price, rating, isFavorite, isPremium } = offer as Offer;
   const NearOffers = offers.filter((offerElement) => offerElement.id !== offer?.id);
+  const cityOffers = offers.filter((offerElement) =>
+    offerElement.id !== offer?.id && offerElement.city.name === offer?.city.name);
   return(
     <div className="page">
       <Helmet>
@@ -185,7 +187,7 @@ function OfferPage({offers, selectedCard, cardClickHandler, cardHoverHandler}: O
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferCards
-              offers={offers}
+              offers={cityOffers}
               cardClickHandler={cardClickHandler}
               cardHoverHandler={cardHoverHandler}
               isFavorites={false}
