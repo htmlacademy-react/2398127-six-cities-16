@@ -8,7 +8,7 @@ type OfferCardProps = {
 }
 
 function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
-  const {id, title, type, price, image, isFavorite, isPremium} = offer;
+  const {id, title, type, price, previewImage, isFavorite, isPremium} = offer;
 
   return(
     <article className="cities__card place-card" id={`offer-${id}`}
@@ -23,7 +23,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
         </div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
       <div className="place-card__info">

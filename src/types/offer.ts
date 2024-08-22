@@ -14,10 +14,11 @@ export type Offer = {
   title: string;
   type: string;
   price: number;
-  image: string;
+  previewImage: string;
   rating: number;
   isFavorite: boolean;
   isPremium: boolean;
   city: City;
+  location: Location;
 };
 

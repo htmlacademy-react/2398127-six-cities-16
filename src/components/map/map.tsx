@@ -17,14 +17,10 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
   const markers: Marker[] = [];
   const defaultCustomIcon = new Icon({
     iconUrl: UrlMapMarkers.URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
   });
 
   const currentCustomIcon = new Icon({
     iconUrl: UrlMapMarkers.URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
   });
 
   useEffect(() => {
@@ -32,8 +28,8 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.city.location.latitude,
-          lng: point.city.location.longitude
+          lat: point.location.latitude,
+          lng: point.location.longitude
         });
 
         marker
