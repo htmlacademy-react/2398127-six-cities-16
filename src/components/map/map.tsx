@@ -38,7 +38,7 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedCard !== undefined && point.title === selectedCard.title
+            selectedCard !== undefined && point.id === selectedCard.id
               ? currentCustomIcon
               : defaultCustomIcon
           )

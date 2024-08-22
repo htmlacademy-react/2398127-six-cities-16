@@ -6,7 +6,7 @@ type OfferCardsProps = {
   offers: Offer[];
   cardClickHandler: (id: string) => void;
   cardHoverHandler: (offerElement: Offer) => void;
-  isFavorites: boolean;
+  isFavorites?: boolean;
   className?: string;
 }
 
@@ -16,7 +16,7 @@ function OfferCards({offers, cardClickHandler, cardHoverHandler, isFavorites, cl
     return (
       <div className="favorites__places">
         {
-          filteredOffers.map((offer) => <OfferCardFavorite key={offer.id} offer={offer} cardClickHandler={cardClickHandler}/>)
+          filteredOffers.map((offer) => <OfferCardFavorite key={offer.id + offer.title} offer={offer} cardClickHandler={cardClickHandler}/>)
         }
       </div>
     );
@@ -27,7 +27,7 @@ function OfferCards({offers, cardClickHandler, cardHoverHandler, isFavorites, cl
     >
       {offers.map((offer) => (
         <OfferCard
-          key={offer.id}
+          key={offer.id + offer.title}
           offer={offer}
           cardClickHandler={cardClickHandler}
           cardHoverHandler={cardHoverHandler}
