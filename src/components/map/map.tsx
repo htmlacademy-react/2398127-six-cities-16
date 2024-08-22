@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import { City, Offer } from '../../types/offer';
 import useMap from '../hooks/use-map';
 import { UrlMapMarkers } from '../../const';
-import {Marker, layerGroup, Icon} from 'leaflet';
+import {Marker, layerGroup, Icon, LatLng} from 'leaflet';
 
 type MapProps = {
   city: City;
@@ -51,6 +51,7 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
         markers.forEach((marker) => {
           marker.remove();
         });
+        map.setView(new LatLng(city.location.latitude, city.location.longitude), city.location.zoom);
       };
     }
   }, [map, points, selectedCard]);

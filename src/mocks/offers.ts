@@ -75,4 +75,42 @@ export const offers: Offer [] = [
       }
     },
   },
+
+  {
+    id: '5',
+    title: 'Loft Studio',
+    type: 'house',
+    price: 280,
+    image: 'https://16.design.htmlacademy.pro/static/hotel/17.jpg',
+    rating: 5,
+    isFavorite: true,
+    isPremium: false,
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 13
+      }
+    },
+  },
+
+  {
+    id: '6',
+    title: 'Loft Studio in the Central',
+    type: 'Cologne',
+    price: 300,
+    image: 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+    rating: 5,
+    isFavorite: true,
+    isPremium: false,
+    city: {
+      name: 'Dusseldorf',
+      location: {
+        latitude: 52.3809553943510,
+        longitude: 4.939309666406198,
+        zoom: 13
+      }
+    },
+  },
 ];
