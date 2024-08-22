@@ -1,14 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { offers } from '../mocks/offers.ts';
-import { Cities, Sorts } from '../const.ts';
-import { changeCity, loadOffers, changeSorting, closeSorting, openSorting, resetSorting } from './action.ts';
+import { Cities, Sorts, AuthorizationStatus } from '../const.ts';
+import { requireAuthorization, changeCity, loadOffers, changeSorting, closeSorting, openSorting, resetSorting } from './action.ts';
 import { sort } from '../utils.ts';
 
 const initialState = {
   city: Cities.PARIS,
   offers: offers,
   sort: Sorts.POPULAR,
-  isFiltersOpen: false
+  isFiltersOpen: false,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -31,6 +32,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(resetSorting, (state) => {
       state.sort = Sorts.POPULAR;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
