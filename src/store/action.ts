@@ -10,7 +10,8 @@ export const Action = {
   CLOSE_SORTING: 'CLOSE_SORTING',
   RESET_SORTING: 'RESET_SORTING',
   REQUIRE_AUTH: 'REQUIRE_AUTH',
-  CHANGE_OFFERS_LOADING_STATUS: 'CHANGE_OFFERS_LOADING_STATUS'
+  CHANGE_OFFERS_LOADING_STATUS: 'CHANGE_OFFERS_LOADING_STATUS',
+  SET_ERROR: 'SET_ERROR'
 };
 
 export const changeCity = createAction(Action.CHANGE_CITY, (selectedCity: City) => ({
@@ -26,3 +27,4 @@ export const closeSorting = createAction(Action.CLOSE_SORTING);
 export const resetSorting = createAction(Action.RESET_SORTING);
 export const requireAuthorization = createAction<AuthorizationStatus>(Action.REQUIRE_AUTH);
 export const changeOffersLoadingStatus = createAction<boolean>(Action.CHANGE_OFFERS_LOADING_STATUS);
+export const setError = createAction<string | null>(Action.SET_ERROR);
