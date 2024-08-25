@@ -1,5 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -10,8 +10,10 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import { store } from '../../store/index.ts';
+import { useAppSelector } from '../hooks/index.ts';
 
 function App(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const [activeCard, setActiveCard] = useState({id: '0'});
   const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
   const offers = store.getState().offers;
@@ -63,7 +65,7 @@ function App(): JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
                 <Favorites
                   offers={offers}
