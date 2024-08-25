@@ -1,17 +1,14 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
-import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../components/hooks';
 import {loginAction} from '../../store/api-actions';
-import {AppRoute} from '../../const.ts';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const submitFormHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -19,7 +16,7 @@ function Login(): JSX.Element {
     if(emailRef.current !== null && passwordRef !== null) {
       dispatch(loginAction({
         email: emailRef.current.value,
-        password: passwordRef.current.value
+        password: passwordRef.current?.value
       }));
     }
   };
@@ -62,7 +59,6 @@ function Login(): JSX.Element {
               </div>
               <button
                 className="login__submit form__submit button" type="submit"
-                onClick={() => navigate(AppRoute.Root)}
               >
                 Sign in
               </button>

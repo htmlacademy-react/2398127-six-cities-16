@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
@@ -11,6 +11,8 @@ import { Offer } from '../../types/offer';
 import { useState } from 'react';
 import { store } from '../../store/index.ts';
 import { useAppSelector } from '../hooks/index.ts';
+import HistoryRouter from '../history-route/history-route.tsx';
+import browserHistory from '../../browser-history.ts';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -30,7 +32,7 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -80,7 +82,7 @@ function App(): JSX.Element {
             element={<PageNotFound />}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
 
   );
