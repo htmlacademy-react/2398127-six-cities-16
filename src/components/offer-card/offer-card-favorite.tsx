@@ -4,7 +4,7 @@ import { AppRoute } from '../../const';
 
 type OfferCardFavoriteProps = {
   offer: Offer;
-  cardClickHandler: (id: string) => void;
+  cardClickHandler: (offer: Offer) => void;
 }
 
 function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): JSX.Element {
@@ -12,7 +12,7 @@ function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): 
   return (
     <article className="favorites__card place-card" id={`offer-${id}`}
       onMouseOver={() => {
-        cardClickHandler(id);
+        cardClickHandler(offer);
       }}
     >
       {isPremium ?

@@ -1,19 +1,19 @@
 import { Offer } from '../../types/offer.ts';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const.ts';
+import { AppRoute, STARS } from '../../const.ts';
 type OfferCardProps = {
   offer: Offer;
-  cardClickHandler: (id: string) => void;
+  cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
 }
 
 function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
-  const {id, title, type, price, previewImage, isFavorite, isPremium} = offer;
-
+  const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = offer;
+  const ratingScale = rating * 100 / STARS.length;
   return(
     <article className="cities__card place-card" id={`offer-${id}`}
       onClick={() => {
-        cardClickHandler(id);
+        cardClickHandler(offer);
       }}
       onMouseEnter={() => cardHoverHandler(offer)}
     >
@@ -47,7 +47,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: '80%',
+                width: `${ratingScale}%`
               }}
             >
             </span>

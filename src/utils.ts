@@ -3,7 +3,7 @@ import { Offer } from './types/offer.ts';
 
 const sortPriceLowToHigh = (offerA: Offer, offerB: Offer) => offerA.price - offerB.price;
 const sortPriceHighToLow = (offerA: Offer, offerB: Offer) => offerB.price - offerA.price;
-const sortTopRatedFirst = (offerA: Offer, OfferB: Offer) => offerA.rating - OfferB.rating;
+const sortTopRatedFirst = (offerB: Offer, OfferA: Offer) => offerB.rating - OfferA.rating;
 
 export const sort = {
   [Sorts.POPULAR]: (offers: Offer[]) => offers,

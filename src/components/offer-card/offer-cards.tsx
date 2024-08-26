@@ -4,7 +4,7 @@ import OfferCardFavorite from './offer-card-favorite.tsx';
 
 type OfferCardsProps = {
   offers: Offer[];
-  cardClickHandler: (id: string) => void;
+  cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
   isFavorites?: boolean;
   className?: string;

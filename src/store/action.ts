@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { City, Offer } from '../types/offer';
+import { City, Offer, CurrentOffer } from '../types/offer';
 import {AuthorizationStatus, AppRoute} from '../const';
 import { UserData } from '../types/user-data';
 
@@ -14,14 +14,15 @@ export const Action = {
   CHANGE_OFFERS_LOADING_STATUS: 'CHANGE_OFFERS_LOADING_STATUS',
   SET_ERROR: 'SET_ERROR',
   REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
-  LOAD_USER_DATA: 'LOAD_USER_DATA'
+  LOAD_USER_DATA: 'LOAD_USER_DATA',
+  LOAD_CURRENT_OFFER: 'LOAD_CURRENT_OFFER'
 };
 
 export const changeCity = createAction(Action.CHANGE_CITY, (selectedCity: City) => ({
   payload: selectedCity
 }));
 export const loadOffers = createAction<Offer[]>(Action.LOAD_OFFERS);
-
+export const loadCurrentOffer = createAction<CurrentOffer>(Action.LOAD_CURRENT_OFFER);
 export const changeSorting = createAction(Action.CHANGE_SORTING, (currentFilter: string) => ({
   payload: currentFilter
 }));

@@ -15,7 +15,7 @@ import EmptyOfferCards from '../../components/offer-card/empty-offer-cards.tsx';
 import { logoutAction } from '../../store/api-actions.ts';
 
 type MainProps = {
-  cardClickHandler: (id: string) => void;
+  cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
   selectedCard: Offer | undefined;
 }

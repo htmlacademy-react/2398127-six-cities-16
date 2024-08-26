@@ -5,7 +5,7 @@ import OfferCards from '../../components/offer-card/offer-cards';
 
 type FavoritesProps = {
   offers: Offer[];
-  cardClickHandler: (id: string) => void;
+  cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
 }
 
