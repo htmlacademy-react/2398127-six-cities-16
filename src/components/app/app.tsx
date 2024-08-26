@@ -9,14 +9,12 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
+import { store } from '../../store/index.ts';
 
-type AppProps = {
-  offers: Offer[];
-}
-
-function App({offers}: AppProps): JSX.Element {
+function App(): JSX.Element {
   const [activeCard, setActiveCard] = useState({id: '0'});
   const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
+  const offers = store.getState().offers;
   const cardClickHandler = (id: string) => {
     setActiveCard({
       ...activeCard,
@@ -24,9 +22,7 @@ function App({offers}: AppProps): JSX.Element {
     });
   };
   const cardHoverHandler = (offerElement: Offer) => {
-    const currentPoint = offers.find((offer) =>
-      offer.title === offerElement.title,
-    );
+    const currentPoint = offerElement;
     setSelectedCard(currentPoint);
   };
 
@@ -38,7 +34,6 @@ function App({offers}: AppProps): JSX.Element {
             path={AppRoute.Root}
             element={
               <Main
-                offers={offers}
                 cardClickHandler={cardClickHandler}
                 cardHoverHandler={cardHoverHandler}
                 selectedCard={selectedCard}

@@ -9,7 +9,7 @@ function CommentItem({comments} : CommentItemProps): JSX.Element {
     <ul className="reviews__list">
       {
         comments.map((comment) => (
-          <li className="reviews__item" key={comment.id}>
+          <li className="reviews__item" key={comment.id + comment.user.name}>
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">
                 <img className="reviews__avatar user__avatar" src={comment.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />

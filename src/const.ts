@@ -16,8 +16,8 @@ export enum AuthorizationStatus {
 export const RAITING = [1, 2, 3, 4, 5];
 
 export const UrlMapMarkers = {
-  URL_MARKER_DEFAULT:'https://i.imghippo.com/files/NmFSB1721386035.svg',
-  URL_MARKER_CURRENT: 'https://i.imghippo.com/files/HgRqu1721386117.svg'
+  URL_MARKER_DEFAULT:'../public/img/pin.svg',
+  URL_MARKER_CURRENT: '../public/img/pin-active.svg'
 };
 
 export const Cities = {
@@ -32,16 +32,16 @@ export const Cities = {
   COLOGNE: {
     name: 'Cologne',
     location: {
-      latitude: 52.37403,
-      longitude: 4.88969,
+      latitude: 50.938361,
+      longitude: 6.959974,
       zoom: 13
     }
   },
   BRUSSELS: {
     name: 'Brussels',
     location: {
-      latitude: 52.37403,
-      longitude: 4.88969,
+      latitude: 50.846557,
+      longitude: 4.351697,
       zoom: 13
     }
   },
@@ -56,16 +56,16 @@ export const Cities = {
   HAMBURG: {
     name: 'Hamburg',
     location: {
-      latitude: 52.37403,
-      longitude: 4.88969,
+      latitude: 53.550341,
+      longitude: 10.000654,
       zoom: 13
     }
   },
   DUSSELDORF: {
     name: 'Dusseldorf',
     location: {
-      latitude: 52.37403,
-      longitude: 4.88969,
+      latitude: 51.225402,
+      longitude: 6.776314,
       zoom: 13
     }
   }
@@ -75,3 +75,18 @@ export const OffersClassName = {
   DEFAULT: 'cities__places-list places__list tabs__content',
   NEAR: 'near-places__list places__list'
 };
+
+export const Sorts = {
+  POPULAR: 'Popular',
+  PRICE_LOW_TO_HIGH: 'Price: low to high',
+  PRICE_HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED_FIRST: 'Top rated first'
+};
+
+export enum APIRoute {
+  Offers = '/offers',
+  Favorite = '/favorite',
+  Comments = '/comments',
+  Login = '/login',
+  Logout = '/logout'
+}

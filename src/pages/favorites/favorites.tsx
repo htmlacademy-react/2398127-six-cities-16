@@ -10,6 +10,7 @@ type FavoritesProps = {
 }
 
 function Favorites({offers, cardClickHandler, cardHoverHandler}: FavoritesProps): JSX.Element {
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite === true);
   return(
     <div className="page">
       <Helmet>
@@ -55,7 +56,7 @@ function Favorites({offers, cardClickHandler, cardHoverHandler}: FavoritesProps)
                     </a>
                   </div>
                 </div>
-                <OfferCards offers={offers} cardClickHandler={cardClickHandler} cardHoverHandler={cardHoverHandler} isFavorites />
+                <OfferCards offers={favoriteOffers} cardClickHandler={cardClickHandler} cardHoverHandler={cardHoverHandler} isFavorites />
 
               </li>
 

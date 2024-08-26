@@ -8,7 +8,7 @@ type OfferCardFavoriteProps = {
 }
 
 function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): JSX.Element {
-  const {id, title, type, price, image, isFavorite, isPremium} = offer;
+  const {id, title, type, price, previewImage, isFavorite, isPremium} = offer;
   return (
     <article className="favorites__card place-card" id={`offer-${id}`}
       onMouseOver={() => {
@@ -21,7 +21,7 @@ function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): 
         </div> : ''}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={image} width="150" height="110" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
