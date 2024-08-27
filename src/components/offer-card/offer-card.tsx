@@ -1,19 +1,25 @@
 import { Offer } from '../../types/offer.ts';
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const.ts';
+import { AppRoute, STARS } from '../../const.ts';
+import { store } from '../../store/index.ts';
+import { updateOfferFavoriteStatusAction } from '../../store/api-actions.ts';
+
 type OfferCardProps = {
   offer: Offer;
-  cardClickHandler: (id: string) => void;
+  cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
 }
 
 function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
-  const {id, title, type, price, previewImage, isFavorite, isPremium} = offer;
-
+  const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = offer;
+  const ratingScale = rating * 100 / STARS.length;
+  const favoriteButtonClickHandler = () => {
+    store.dispatch(updateOfferFavoriteStatusAction(offer));
+  };
   return(
     <article className="cities__card place-card" id={`offer-${id}`}
       onClick={() => {
-        cardClickHandler(id);
+        cardClickHandler(offer);
       }}
       onMouseEnter={() => cardHoverHandler(offer)}
     >
@@ -36,6 +42,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
             ${isFavorite ?
       'place-card__bookmark-button--active'
       : ''}`} type="button"
+          onClick={favoriteButtonClickHandler}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -47,7 +54,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: '80%',
+                width: `${ratingScale}%`
               }}
             >
             </span>

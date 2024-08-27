@@ -22,3 +22,17 @@ export type Offer = {
   location: Location;
 };
 
+export type Host = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
+
+export type CurrentOffer = Offer & {
+  images: string[];
+  description: string;
+  goods: string[];
+  host: Host;
+  bedrooms: number;
+  maxAdults: number;
+};

@@ -1,13 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { City, Offer } from '../types/offer.ts';
+import { City, CurrentOffer, Offer } from '../types/offer.ts';
 import { Cities, Sorts, AuthorizationStatus } from '../const.ts';
-import { loadUserData, changeOffersLoadingStatus, requireAuthorization, changeCity, loadOffers, changeSorting, closeSorting, openSorting, resetSorting, setError } from './action.ts';
+import { loadNewComment,loadFavoriteOffers, loadNearOffers, loadComments, loadCurrentOffer, loadUserData, changeOffersLoadingStatus, requireAuthorization, changeCity, loadOffers, changeSorting, closeSorting, openSorting, resetSorting, setError } from './action.ts';
 import { sort } from '../utils.ts';
 import { UserData } from '../types/user-data.ts';
+import { Comment } from '../types/comment.ts';
 
 type InitialState = {
   city: City;
   offers: Offer[];
+  currentOffer: CurrentOffer | null;
+  favoriteOffers: Offer[];
+  nearOffers: Offer[];
+  comments: Comment[];
+  newComment: Comment | null;
   user: UserData | null;
   sort: string;
   isFiltersOpen: boolean;
@@ -19,6 +25,11 @@ type InitialState = {
 const initialState: InitialState = {
   city: Cities.PARIS,
   offers: [],
+  favoriteOffers: [],
+  currentOffer: null,
+  nearOffers: [],
+  comments: [],
+  newComment: null,
   user: null,
   sort: Sorts.POPULAR,
   isFiltersOpen: false,
@@ -34,6 +45,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(changeSorting, (state, action) => {
       state.sort = action.payload;
@@ -56,6 +70,18 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadUserData, (state, action) => {
       state.user = action.payload;
+    })
+    .addCase(loadCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload;
+    })
+    .addCase(loadNearOffers, (state, action) => {
+      state.nearOffers = action.payload;
+    })
+    .addCase(loadFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(loadNewComment, (state, action) => {
+      state.newComment = action.payload;
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;

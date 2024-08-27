@@ -13,7 +13,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const RAITING = [1, 2, 3, 4, 5];
+export const STARS = [1, 2, 3, 4, 5];
 
 export const UrlMapMarkers = {
   URL_MARKER_DEFAULT:'../public/img/pin.svg',

@@ -9,20 +9,19 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
-import { store } from '../../store/index.ts';
 import { useAppSelector } from '../hooks/index.ts';
 import HistoryRouter from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
+
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const [activeCard, setActiveCard] = useState({id: '0'});
   const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
-  const offers = store.getState().offers;
-  const cardClickHandler = (id: string) => {
+  const cardClickHandler = (offer: Offer) => {
     setActiveCard({
       ...activeCard,
-      id: id
+      id: offer.id
     });
   };
   const cardHoverHandler = (offerElement: Offer) => {
@@ -55,7 +54,6 @@ function App(): JSX.Element {
               path={AppRoute.OfferId}
               element={
                 <OfferPage
-                  offers={offers}
                   cardHoverHandler={cardHoverHandler}
                   cardClickHandler={cardClickHandler}
                   selectedCard={selectedCard}
@@ -70,7 +68,6 @@ function App(): JSX.Element {
                 authorizationStatus={authorizationStatus}
               >
                 <Favorites
-                  offers={offers}
                   cardClickHandler ={cardClickHandler }
                   cardHoverHandler ={cardHoverHandler}
                 />
