@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { City, Offer } from '../types/offer';
-import {AuthorizationStatus} from '../const';
+import {AuthorizationStatus, AppRoute} from '../const';
+import { UserData } from '../types/user-data';
 
 export const Action = {
   CHANGE_CITY: 'CHANGE_CITY',
@@ -10,7 +11,10 @@ export const Action = {
   CLOSE_SORTING: 'CLOSE_SORTING',
   RESET_SORTING: 'RESET_SORTING',
   REQUIRE_AUTH: 'REQUIRE_AUTH',
-  CHANGE_OFFERS_LOADING_STATUS: 'CHANGE_OFFERS_LOADING_STATUS'
+  CHANGE_OFFERS_LOADING_STATUS: 'CHANGE_OFFERS_LOADING_STATUS',
+  SET_ERROR: 'SET_ERROR',
+  REDIRECT_TO_ROUTE: 'REDIRECT_TO_ROUTE',
+  LOAD_USER_DATA: 'LOAD_USER_DATA'
 };
 
 export const changeCity = createAction(Action.CHANGE_CITY, (selectedCity: City) => ({
@@ -26,3 +30,6 @@ export const closeSorting = createAction(Action.CLOSE_SORTING);
 export const resetSorting = createAction(Action.RESET_SORTING);
 export const requireAuthorization = createAction<AuthorizationStatus>(Action.REQUIRE_AUTH);
 export const changeOffersLoadingStatus = createAction<boolean>(Action.CHANGE_OFFERS_LOADING_STATUS);
+export const setError = createAction<string | null>(Action.SET_ERROR);
+export const redirectToRoute = createAction<AppRoute>(Action.REDIRECT_TO_ROUTE);
+export const loadUserData = createAction<UserData>(Action.LOAD_USER_DATA);
