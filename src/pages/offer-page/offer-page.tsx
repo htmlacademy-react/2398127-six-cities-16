@@ -1,12 +1,16 @@
-import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';
 import CommentList from '../../components/comments/comments-list';
 import OfferCards from '../../components/offer-card/offer-cards';
 import Map from '../../components/map/map.tsx';
-import { Cities, OffersClassName, STARS } from '../../const.ts';
+import { OffersClassName, STARS } from '../../const.ts';
 import { store } from '../../store/index.ts';
+import Header from '../../components/header/header.tsx';
+import Loader from '../../components/loader/loader.tsx';
+import { useAppSelector } from '../../components/hooks/index.ts';
+import { fetchCommentsAction, fetchCurrentOfferAction, fetchNearOfferAction } from '../../store/api-actions.ts';
+import { useEffect } from 'react';
 import PageNotFound from '../page-not-found/page-not-found.tsx';
 
 type OfferPageProps = {
@@ -16,12 +20,21 @@ type OfferPageProps = {
 }
 function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPageProps): JSX.Element {
   const { id: currentId } = useParams();
-  const offers = store.getState().offers;
+  useEffect(() => {
+    if (currentId) {
+      store.dispatch(fetchCommentsAction(currentId));
+      store.dispatch(fetchNearOfferAction(currentId));
+      store.dispatch(fetchCurrentOfferAction(currentId));
+    }
+  }, [currentId]);
+
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const currentCity = store.getState().city;
   const currentOffer = store.getState().currentOffer;
-  const offer: Offer | undefined = offers.find((element) => element.id === currentId);
-  const nearOffers = offers.filter((offerElement) => offerElement.id !== offer?.id);
-  const cityOffers = offers.filter((offerElement) =>
-    offerElement.id !== offer?.id && offerElement.city.name === offer?.city.name);
+  const nearOffers = store.getState().nearOffers;
+  if (isOffersLoading) {
+    return <Loader />;
+  }
   if (currentOffer) {
     const { title, type, price, isFavorite, isPremium, rating, description, goods, host, maxAdults, bedrooms, images, id } = currentOffer;
     const ratingScale = rating * 100 / STARS.length;
@@ -30,32 +43,7 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
         <Helmet>
           <title>6 cities — Offer</title>
         </Helmet>
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Logo />
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">3</span>
-                    </a>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         <main className="page__main page__main--offer">
           <section className="offer">
@@ -140,12 +128,12 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
                     </p>
                   </div>
                 </div>
-                <CommentList offer={currentOffer}/>
+                <CommentList />
               </div>
             </div>
             <section className="offer__map map">
               <Map
-                city={Cities.AMSTERDAM}
+                city={currentCity}
                 points={nearOffers}
                 selectedCard={selectedCard}
               />
@@ -155,7 +143,7 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <OfferCards
-                offers={cityOffers}
+                offers={nearOffers}
                 cardClickHandler={cardClickHandler}
                 cardHoverHandler={cardHoverHandler}
                 isFavorites={false}

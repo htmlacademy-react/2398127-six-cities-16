@@ -1,24 +1,40 @@
-import { Offer } from '../../types/offer.ts';
-import { Comment } from '../../types/comment.tsx';
-import { comments } from '../../mocks/comments.ts';
 import CommentItem from './comments-item.tsx';
 import CommentForm from '../comment-form/comment-form.tsx';
-type CommentListProps = {
-  offer: Offer;
-}
+import { AuthorizationStatus } from '../../const.ts';
+import { useAppSelector } from '../hooks/index.ts';
+import { useEffect, useState } from 'react';
+import { Comment } from '../../types/comment.ts';
+import { store } from '../../store/index.ts';
+import { postCommentAction } from '../../store/api-actions.ts';
 
-function CommentList({offer}: CommentListProps): JSX.Element {
-  const relatedComments: Comment[] = comments.filter((comment) => comment.id === offer.id);
+
+function CommentList(): JSX.Element {
+  const [comments, setComments] = useState<Comment[]>([]);
+  const currentComments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const newComment = useAppSelector((state) => state.newComment);
+
+  useEffect(() => {
+    setComments(currentComments);
+  }, []);
+
+  const addCommentHandler = (commentInfo: Comment) => {
+    store.dispatch(postCommentAction(commentInfo));
+    if (newComment) {
+      setComments((prevComments) => [...prevComments, newComment]);
+    }
+  };
+
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
       Reviews &middot;
         <span className="reviews__amount">
-          {relatedComments.length}
+          { comments.length }
         </span>
       </h2>
-      {relatedComments.length ? <CommentItem comments={relatedComments}/> : ''}
-      <CommentForm />
+      {comments.length ? <CommentItem comments={comments}/> : ''}
+      {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm formSubmitHandler={addCommentHandler}/> : ''}
     </section>
   );
 }

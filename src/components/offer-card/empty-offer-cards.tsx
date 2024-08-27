@@ -1,5 +1,5 @@
 import { City } from '../../types/offer.ts';
-import './stay-place-card.css';
+import './empty-offer-cards.css';
 
 type EmptyOfferCardsProps = {
   currentCity: City;

@@ -1,6 +1,9 @@
 import { Offer } from '../../types/offer.ts';
 import { Link } from 'react-router-dom';
 import { AppRoute, STARS } from '../../const.ts';
+import { store } from '../../store/index.ts';
+import { updateOfferFavoriteStatusAction } from '../../store/api-actions.ts';
+
 type OfferCardProps = {
   offer: Offer;
   cardClickHandler: (offer: Offer) => void;
@@ -10,6 +13,9 @@ type OfferCardProps = {
 function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = offer;
   const ratingScale = rating * 100 / STARS.length;
+  const favoriteButtonClickHandler = () => {
+    store.dispatch(updateOfferFavoriteStatusAction(offer));
+  };
   return(
     <article className="cities__card place-card" id={`offer-${id}`}
       onClick={() => {
@@ -36,6 +42,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
             ${isFavorite ?
       'place-card__bookmark-button--active'
       : ''}`} type="button"
+          onClick={favoriteButtonClickHandler}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
