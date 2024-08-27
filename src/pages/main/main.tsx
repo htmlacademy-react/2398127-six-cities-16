@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../components/hooks/index.ts'
 import Loader from '../../components/loader/loader.tsx';
 import {useNavigate } from 'react-router-dom';
 import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
-import EmptyOfferCards from '../../components/offer-card/empty-offer-cards.tsx';
+import OfferCardsEmpty from '../../components/offer-card/offer-cards-empty.tsx';
 import Header from '../../components/header/header.tsx';
 
 type MainProps = {
@@ -47,7 +47,7 @@ function Main({cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JS
         <div className="cities">
           {
             cityOffers.length === 0
-              ? <EmptyOfferCards currentCity={currentCity}/>
+              ? <OfferCardsEmpty currentCity={currentCity}/>
               : (
                 <div className="cities__places-container container">
                   <section className="cities__places places">
