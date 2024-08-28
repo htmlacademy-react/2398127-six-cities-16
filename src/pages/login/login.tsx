@@ -1,7 +1,7 @@
 import Logo from '../../components/logo/logo';
 import { Helmet } from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
-import {useAppDispatch} from '../../components/hooks';
+import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 
 function Login(): JSX.Element {

@@ -11,3 +11,9 @@ export type Comment = {
   comment: string;
   user: User;
 }
+
+export type NewComment = {
+  id: string;
+  comment: string;
+  rating: number;
+}

@@ -1,16 +1,17 @@
 import { Link } from 'react-router-dom';
-import { store } from '../../store';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/selectors';
+import { getOffers } from '../../store/offer-data/selectors';
 import { logoutAction } from '../../store/api-actions';
 import Logo from '../logo/logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../components/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 
 function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
-  const userData = store.getState().user;
+  const offers = useAppSelector(getOffers).filter((offer) => offer.isFavorite === true);
+  const userData = useAppSelector(getUserData);
 
   return (
     <header className="header">
@@ -30,7 +31,7 @@ function Header(): JSX.Element {
                           <div className="header__avatar-wrapper user__avatar-wrapper">
                           </div>
                           <span className="header__user-name user__name">{userData?.email}</span>
-                          <span className="header__favorite-count">{favoriteOffers.length}</span>
+                          <span className="header__favorite-count">{offers.length}</span>
                         </Link>
                       </li>
                       <li className="header__nav-item">

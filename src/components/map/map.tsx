@@ -1,7 +1,7 @@
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
 import { City, Offer } from '../../types/offer';
-import useMap from '../hooks/use-map';
+import useMap from '../../hooks/use-map';
 import { UrlMapMarkers } from '../../const';
 import {Marker, layerGroup, Icon, LatLng} from 'leaflet';
 
