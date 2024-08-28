@@ -1,8 +1,12 @@
 import { Offer } from '../../types/offer.ts';
-import { Link } from 'react-router-dom';
-import { AppRoute, STARS } from '../../const.ts';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, STARS } from '../../const.ts';
 import { store } from '../../store/index.ts';
 import { updateOfferFavoriteStatusAction } from '../../store/api-actions.ts';
+import { setError } from '../../store/errors-process/errors-process.ts';
+import { useState } from 'react';
+import { useAppSelector } from '../../hooks/index.ts';
+import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
 
 type OfferCardProps = {
   offer: Offer;
@@ -12,10 +16,27 @@ type OfferCardProps = {
 
 function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = offer;
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
+  const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const ratingScale = rating * 100 / STARS.length;
   const favoriteButtonClickHandler = () => {
-    store.dispatch(updateOfferFavoriteStatusAction(offer));
+    try {
+      if (authorizationStatus === AuthorizationStatus.Auth) {
+        setIsUpdating(true);
+        store.dispatch(updateOfferFavoriteStatusAction({offer, favoriteStatus}));
+        setFavoriteStatus(!favoriteStatus);
+      } else {
+        navigate(AppRoute.Login);
+      }
+    } catch (err) {
+      setError('Cant update status');
+    } finally {
+      setIsUpdating(false);
+    }
   };
+
   return(
     <article className="cities__card place-card" id={`offer-${id}`}
       onClick={() => {
@@ -43,6 +64,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
       'place-card__bookmark-button--active'
       : ''}`} type="button"
           onClick={favoriteButtonClickHandler}
+          disabled={isUpdating}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

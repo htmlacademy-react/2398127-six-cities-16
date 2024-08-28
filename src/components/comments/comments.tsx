@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../const.ts';
 import { useAppSelector } from '../../hooks/index.ts';
 import CommentForm from '../comment-form/comment-form.tsx';
-import ReviewList from './comments-list.tsx';
+import CommentsList from './comments-list.tsx';
 import { Comment, NewComment } from '../../types/comment.ts';
 import { store } from '../../store/index.ts';
 import { postCommentAction } from '../../store/api-actions.ts';
@@ -37,7 +37,7 @@ function Comments(): JSX.Element {
           { comments?.length }
         </span>
       </h2>
-      {comments?.length ? <ReviewList comments={comments}/> : ''}
+      {comments?.length ? <CommentsList comments={comments}/> : ''}
       {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm formSubmitHandler={addCommentHandler}/> : ''}
     </section>
   );
