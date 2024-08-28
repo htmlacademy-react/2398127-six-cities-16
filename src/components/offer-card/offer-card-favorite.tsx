@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
+import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { store } from '../../store/index.ts';
 import { updateOfferFavoriteStatusAction } from '../../store/api-actions.ts';
 import { setError } from '../../store/errors-process/errors-process.ts';
+import { useState } from 'react';
 
 type OfferCardFavoriteProps = {
   offer: Offer;
@@ -21,7 +21,7 @@ function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): 
       store.dispatch(updateOfferFavoriteStatusAction({offer, favoriteStatus}));
       setFavoriteStatus(!favoriteStatus);
     } catch (err) {
-      setError('status update failed');
+      setError('Cant update status');
     } finally {
       setIsUpdating(false);
     }

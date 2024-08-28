@@ -3,6 +3,7 @@ import { City } from '../../types/offer';
 import { Cities, NameSpace } from '../../const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+
 const initialState: CitiesProcess = {
   city: Cities.PARIS
 };
