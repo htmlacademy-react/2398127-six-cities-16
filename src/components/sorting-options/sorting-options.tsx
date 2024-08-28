@@ -1,14 +1,16 @@
 import { AppRoute, Sorts} from '../../const';
-import { store } from '../../store';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../hooks';
-import { openSorting, changeSorting, closeSorting } from '../../store/action';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getOpenedStatus } from '../../store/sorting-process/selectors';
+import { closeSorting, openSorting } from '../../store/sorting-process/sorting-process';
+import { changeSorting } from '../../store/offer-data/offer-data';
+import { getActiveSorting } from '../../store/offer-data/selectors';
 
 function SortingOptions(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isOpened = store.getState().isFiltersOpen;
-  const activeSort = store.getState().sort;
+  const isOpened = useAppSelector(getOpenedStatus);
+  const activeSort = useAppSelector(getActiveSorting);
 
   const sortingFormClickHandler = () => {
     if (isOpened) {
@@ -19,17 +21,15 @@ function SortingOptions(): JSX.Element {
     navigate(AppRoute.Root);
   };
 
-  const sortingFormChangeHandler = (filter: string) => {
-    dispatch(changeSorting(filter));
+  const sortingFormChangeHandler = (sortType: string) => {
+    dispatch(changeSorting(sortType));
     navigate(AppRoute.Root);
   };
 
   return (
     <form className="places__sorting" action="#" method="get"
       onClick={sortingFormClickHandler}
-      onMouseOver={() => {
-        dispatch(closeSorting());
-      }}
+
     >
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>

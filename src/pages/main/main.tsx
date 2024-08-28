@@ -3,15 +3,18 @@ import {Offer, City} from '../../types/offer';
 import OfferCards from '../../components/offer-card/offer-cards';
 import Map from '../../components/map/map.tsx';
 import {OffersClassName, AppRoute} from '../../const.ts';
-import { store } from '../../store/index.ts';
 import CitiesList from '../../components/cities-list/cities-list.tsx';
-import { changeCity, resetSorting } from '../../store/action.ts';
-import { useAppDispatch, useAppSelector } from '../../components/hooks/index.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import Loader from '../../components/loader/loader.tsx';
 import {useNavigate } from 'react-router-dom';
 import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
 import OfferCardsEmpty from '../../components/offer-card/offer-cards-empty.tsx';
 import Header from '../../components/header/header.tsx';
+import { changeCity } from '../../store/cities-process/cities-process.ts';
+import { getCurrentCity } from '../../store/cities-process/selectors.ts';
+import { getOffers, getOffersLoadingStatus } from '../../store/offer-data/selectors.ts';
+import { closeSorting } from '../../store/sorting-process/sorting-process.ts';
+import { resetSorting } from '../../store/offer-data/offer-data.ts';
 
 type MainProps = {
   cardClickHandler: (offer: Offer) => void;
@@ -22,12 +25,13 @@ type MainProps = {
 function Main({cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  const currentCity = store.getState().city;
-  const cityOffers = useAppSelector((state) => state.offers).filter((offer) => offer.city.name === currentCity.name);
+  const isOffersLoading = useAppSelector(getOffersLoadingStatus);
+  const currentCity = useAppSelector(getCurrentCity);
+  const cityOffers = useAppSelector(getOffers).filter((offer) => offer.city.name === currentCity.name);
   const cityClickHandler = (city: City) => {
     dispatch(changeCity(city));
     dispatch(resetSorting());
+    dispatch(closeSorting());
     navigate(AppRoute.Root);
   };
   return (

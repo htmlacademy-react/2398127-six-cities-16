@@ -9,16 +9,19 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
-import { useAppSelector } from '../hooks/index.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import HistoryRouter from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
-
+import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
+import { closeSorting } from '../../store/sorting-process/sorting-process.ts';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const [activeCard, setActiveCard] = useState({id: '0'});
   const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
   const cardClickHandler = (offer: Offer) => {
+    dispatch(closeSorting());
     setActiveCard({
       ...activeCard,
       id: offer.id

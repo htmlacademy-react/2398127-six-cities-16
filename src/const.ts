@@ -15,6 +15,14 @@ export enum AuthorizationStatus {
 
 export const STARS = [1, 2, 3, 4, 5];
 
+export const StarNames = {
+  1: 'terribly',
+  2: 'badly',
+  3: 'not bad',
+  4: 'good',
+  5: 'perfect'
+};
+
 export const UrlMapMarkers = {
   URL_MARKER_DEFAULT:'../public/img/pin.svg',
   URL_MARKER_CURRENT: '../public/img/pin-active.svg'
@@ -92,3 +100,12 @@ export enum APIRoute {
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum NameSpace {
+  User = 'USER',
+  Offers = 'OFFERS',
+  Comments = 'COMMENTS',
+  Sort = 'SORT',
+  City = 'CITY',
+  Errors = 'ERRORS'
+}
