@@ -1,9 +1,9 @@
-import OfferCard from './offer-card.tsx';
-import OfferCardFavorite from './offer-card-favorite.tsx';
 import { useAppSelector } from '../../hooks/index.ts';
 import { getOffers } from '../../store/offer-data/selectors.ts';
 import { getCurrentCity } from '../../store/cities-process/selectors.ts';
 import { Offer } from '../../types/offer.ts';
+import OfferCard from './offer-card.tsx';
+import OfferCardFavorite from './offer-card-favorite.tsx';
 
 type OfferCardsProps = {
   favoriteOffers?: Offer[];
