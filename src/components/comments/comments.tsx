@@ -19,7 +19,7 @@ function Comments(): JSX.Element {
     setComments(currentComments);
   }, [currentComments]);
 
-  const addCommentHandler = async (commentData: NewComment) => {
+  const commentSubmitHandler = async (commentData: NewComment) => {
     const {payload} = await store.dispatch(postCommentAction(commentData));
     if (payload) {
       const newComment = convertToComment(payload);
@@ -38,7 +38,7 @@ function Comments(): JSX.Element {
         </span>
       </h2>
       {comments?.length ? <CommentsList comments={comments}/> : ''}
-      {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm formSubmitHandler={addCommentHandler}/> : ''}
+      {authorizationStatus === AuthorizationStatus.Auth ? <CommentForm formSubmitHandler={commentSubmitHandler}/> : ''}
     </section>
   );
 }

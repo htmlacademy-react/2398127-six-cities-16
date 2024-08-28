@@ -4,17 +4,17 @@ import { getCurrentCity } from '../../store/cities-process/selectors.ts';
 
 type CitiesItemProps = {
   city: City;
-  onCityItemClick: (city: City) => void;
+  cityClickHandler: (city: City) => void;
 }
 
-function CitiesItem({city, onCityItemClick}: CitiesItemProps): JSX.Element {
-  const cityName = useAppSelector(getCurrentCity);
+function CitiesItem({city, cityClickHandler}: CitiesItemProps): JSX.Element {
+  const currentCity = useAppSelector(getCurrentCity);
   return (
     <li className="locations__item" key={city.name} onClick={() => {
-      onCityItemClick(city);
+      cityClickHandler(city);
     }}
     >
-      <a className={`locations__item-link tabs__item ${cityName.name === city.name ? 'tabs__item--active' : ''}`} href="#">
+      <a className={`locations__item-link tabs__item ${currentCity.name === city.name ? 'tabs__item--active' : ''}`} href="#">
         <span>{city.name}</span>
       </a>
     </li>

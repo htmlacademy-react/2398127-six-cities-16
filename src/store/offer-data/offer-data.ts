@@ -8,7 +8,7 @@ const initialState: OffersData = {
   offers: [],
   favoriteOffers: [],
   currentOffer: null,
-  nearOffers: [],
+  offersNearby: [],
   isOffersLoading: false,
   sort: Sorts.POPULAR
 };
