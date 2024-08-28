@@ -1,20 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import {Offer, City} from '../../types/offer';
+import OfferCards from '../../components/offer-card/offer-cards';
+import Map from '../../components/map/map.tsx';
 import {OffersClassName, AppRoute} from '../../const.ts';
+import CitiesList from '../../components/cities-list/cities-list.tsx';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
+import Loader from '../../components/loader/loader.tsx';
 import {useNavigate } from 'react-router-dom';
+import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
+import OfferCardsEmpty from '../../components/offer-card/offer-cards-empty.tsx';
+import Header from '../../components/header/header.tsx';
 import { changeCity } from '../../store/cities-process/cities-process.ts';
 import { getCurrentCity } from '../../store/cities-process/selectors.ts';
 import { getOffers, getOffersLoadingStatus } from '../../store/offer-data/selectors.ts';
 import { closeSorting } from '../../store/sorting-process/sorting-process.ts';
 import { resetSorting } from '../../store/offer-data/offer-data.ts';
-import OfferCards from '../../components/offer-card/offer-cards';
-import Map from '../../components/map/map.tsx';
-import CitiesList from '../../components/cities-list/cities-list.tsx';
-import Loader from '../../components/loader/loader.tsx';
-import Header from '../../components/header/header.tsx';
-import SortingOptions from '../../components/sorting-options/sorting-options.tsx';
-import OfferCardsEmpty from '../../components/offer-card/offer-cards-empty.tsx';
 
 type MainProps = {
   cardClickHandler: (offer: Offer) => void;

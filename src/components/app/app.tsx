@@ -1,20 +1,19 @@
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import { useState } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
-import { Offer } from '../../types/offer';
-import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
-import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
-import { closeSorting } from '../../store/sorting-process/sorting-process.ts';
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import Favorites from '../../pages/favorites/favorites';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
+import { HelmetProvider } from 'react-helmet-async';
+import { Offer } from '../../types/offer';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/index.ts';
 import HistoryRouter from '../history-route/history-route.tsx';
 import browserHistory from '../../browser-history.ts';
-
+import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
+import { closeSorting } from '../../store/sorting-process/sorting-process.ts';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();

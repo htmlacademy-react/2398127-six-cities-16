@@ -1,11 +1,11 @@
-import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks';
+import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { AppRoute, StarNames } from '../../const';
 import { NewComment } from '../../types/comment';
 import { getCurrentOffer } from '../../store/offer-data/selectors';
 
 type CommentFormProps = {
-  formSubmitHandler: (commentData: NewComment) => Promise<void>;
+  formSubmitHandler: (commentInfo: NewComment) => Promise<void>;
 }
 
 function CommentForm({formSubmitHandler}: CommentFormProps) {
@@ -17,7 +17,7 @@ function CommentForm({formSubmitHandler}: CommentFormProps) {
   } as NewComment);
 
   useEffect(() => {
-    const clearCommentInput = () => {
+    const clearInputs = () => {
       setCommentData({
         ...commentData,
         rating: 0,
@@ -25,7 +25,7 @@ function CommentForm({formSubmitHandler}: CommentFormProps) {
       });
     };
 
-    clearCommentInput();
+    clearInputs();
   }, []);
 
   const textChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {

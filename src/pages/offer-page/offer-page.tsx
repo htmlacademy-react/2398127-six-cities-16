@@ -1,26 +1,25 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';
-import { OffersClassName, STARS } from '../../const.ts';
-import { store } from '../../store/index.ts';
-import { useAppSelector } from '../../hooks/index.ts';
-import { fetchCommentsAction, fetchCurrentOfferAction, fetchNearOfferAction } from '../../store/api-actions.ts';
-import { getCurrentCity } from '../../store/cities-process/selectors.ts';
-import { getCurrentOffer, getOffersNearby, getOffersLoadingStatus } from '../../store/offer-data/selectors.ts';
 import Comments from '../../components/comments/comments.tsx';
 import OfferCards from '../../components/offer-card/offer-cards';
 import Map from '../../components/map/map.tsx';
-import PageNotFound from '../page-not-found/page-not-found.tsx';
+import { OffersClassName, STARS } from '../../const.ts';
+import { store } from '../../store/index.ts';
 import Header from '../../components/header/header.tsx';
 import Loader from '../../components/loader/loader.tsx';
+import { useAppSelector } from '../../hooks/index.ts';
+import { fetchCommentsAction, fetchCurrentOfferAction, fetchNearOfferAction } from '../../store/api-actions.ts';
+import { useEffect } from 'react';
+import PageNotFound from '../page-not-found/page-not-found.tsx';
+import { getCurrentCity } from '../../store/cities-process/selectors.ts';
+import { getCurrentOffer, getNearOffers, getOffersLoadingStatus } from '../../store/offer-data/selectors.ts';
 
 type OfferPageProps = {
   selectedCard: Offer | undefined;
   cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
 }
-
 function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPageProps): JSX.Element {
   const { id: currentId } = useParams();
   useEffect(() => {
@@ -34,7 +33,7 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
   const isOffersLoading = useAppSelector(getOffersLoadingStatus);
   const currentCity = useAppSelector(getCurrentCity);
   const currentOffer = useAppSelector(getCurrentOffer);
-  const offersNearby = useAppSelector(getOffersNearby);
+  const nearOffers = useAppSelector(getNearOffers);
   if (isOffersLoading) {
     return <Loader />;
   }
@@ -137,7 +136,7 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
             <section className="offer__map map">
               <Map
                 city={currentCity}
-                points={offersNearby}
+                points={nearOffers}
                 selectedCard={selectedCard}
               />
             </section>
