@@ -34,6 +34,11 @@ function Main({cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JS
     dispatch(closeSorting());
     navigate(AppRoute.Root);
   };
+
+  if (isOffersLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -57,20 +62,12 @@ function Main({cardClickHandler, cardHoverHandler, selectedCard}: MainProps): JS
                   <section className="cities__places places">
                     <h2 className="visually-hidden">Places</h2>
                     <b className="places__found">{cityOffers.length} places to stay in {currentCity.name}</b>
-                    {
-                      isOffersLoading
-                        ? <Loader />
-                        :
-                        <>
-                          <SortingOptions />
-                          <OfferCards
-                            offers={cityOffers}
-                            className={OffersClassName.DEFAULT}
-                            cardClickHandler={cardClickHandler}
-                            cardHoverHandler={cardHoverHandler}
-                          />
-                        </>
-                    }
+                    <SortingOptions />
+                    <OfferCards
+                      className={OffersClassName.DEFAULT}
+                      cardClickHandler={cardClickHandler}
+                      cardHoverHandler={cardHoverHandler}
+                    />
                   </section>
                   <div className="cities__right-section">
                     <section className="cities__map map">

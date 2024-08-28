@@ -1,22 +1,26 @@
-import { Offer } from '../../types/offer.ts';
 import OfferCard from './offer-card.tsx';
 import OfferCardFavorite from './offer-card-favorite.tsx';
+import { useAppSelector } from '../../hooks/index.ts';
+import { getOffers } from '../../store/offer-data/selectors.ts';
+import { getCurrentCity } from '../../store/cities-process/selectors.ts';
+import { Offer } from '../../types/offer.ts';
 
 type OfferCardsProps = {
-  offers: Offer[];
+  favoriteOffers?: Offer[];
   cardClickHandler: (offer: Offer) => void;
   cardHoverHandler: (offerElement: Offer) => void;
   isFavorites?: boolean;
   className?: string;
 }
 
-function OfferCards({offers, cardClickHandler, cardHoverHandler, isFavorites, className}: OfferCardsProps): JSX.Element {
-  if (isFavorites) {
-    const filteredOffers = offers.filter((offer) => offer.isFavorite);
+function OfferCards({favoriteOffers, cardClickHandler, cardHoverHandler, isFavorites, className}: OfferCardsProps): JSX.Element {
+  const currentCity = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers).filter((offer) => offer.city.name === currentCity.name);
+  if (isFavorites && favoriteOffers) {
     return (
       <div className="favorites__places">
         {
-          filteredOffers.map((offer) => <OfferCardFavorite key={offer.id + offer.title} offer={offer} cardClickHandler={cardClickHandler}/>)
+          favoriteOffers.map((offer) => <OfferCardFavorite key={offer.id + offer.title} offer={offer} cardClickHandler={cardClickHandler}/>)
         }
       </div>
     );

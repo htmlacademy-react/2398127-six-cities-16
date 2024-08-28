@@ -145,7 +145,6 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <OfferCards
-                offers={nearOffers}
                 cardClickHandler={cardClickHandler}
                 cardHoverHandler={cardHoverHandler}
                 isFavorites={false}
