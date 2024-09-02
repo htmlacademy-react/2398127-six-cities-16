@@ -16,12 +16,13 @@ type OfferCardProps = {
 
 function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps): JSX.Element {
   const {id, title, type, price, previewImage, isFavorite, isPremium, rating} = offer;
+  const [currentOffer, setCurrentOffer] = useState<Offer>({} as Offer);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
   const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const ratingScale = rating * 100 / STARS.length;
-  const favoriteButtonClickHandler = () => {
+  const toggleFavoriteStatusHandler = () => {
     try {
       if (authorizationStatus === AuthorizationStatus.Auth) {
         setIsUpdating(true);
@@ -38,8 +39,13 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
   };
 
   return(
-    <article className="cities__card place-card" id={`offer-${id}`}
+    <article className="cities__card place-card"
+      id={`offer-${id}`}
       onClick={() => {
+        setCurrentOffer({
+          ...currentOffer,
+          id: id
+        });
         cardClickHandler(offer);
       }}
       onMouseEnter={() => cardHoverHandler(offer)}
@@ -60,16 +66,16 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={`place-card__bookmark-button button
-            ${isFavorite ?
+            ${favoriteStatus ?
       'place-card__bookmark-button--active'
       : ''}`} type="button"
-          onClick={favoriteButtonClickHandler}
+          onClick={toggleFavoriteStatusHandler}
           disabled={isUpdating}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+            <span className="visually-hidden">{favoriteStatus ? 'In bookmarks' : 'To bookmarks'}</span>
           </button>
         </div>
         <div className="place-card__rating rating">

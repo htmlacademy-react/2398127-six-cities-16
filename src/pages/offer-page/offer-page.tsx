@@ -177,7 +177,6 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
               <OfferCards
                 cardClickHandler={cardClickHandler}
                 cardHoverHandler={cardHoverHandler}
-                isFavorites={false}
                 className={OffersClassName.NEAR}
               />
             </section>
