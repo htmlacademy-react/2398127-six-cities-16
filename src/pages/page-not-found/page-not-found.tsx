@@ -1,16 +1,21 @@
 import { Link } from 'react-router-dom';
-import {AppRoute} from '../../const';
 import { Helmet } from 'react-helmet-async';
+import Logo from '../../components/logo/logo.tsx';
 
 function PageNotFound() :JSX.Element {
   return (
-    <div>
+    <section>
       <Helmet>
         <title>6 cities — 404 Not Found</title>
       </Helmet>
-      <h1>Страница не найдена</h1>
-      <Link to={AppRoute.Root}>Вернуться на главную страницу</Link>
-    </div>
+      <header>
+        <Logo />
+      </header>
+      <section>
+        <h1>Ошибка 404. Страница не найдена</h1>
+        <Link to="/">Вернуться на главную страницу</Link>
+      </section>
+    </section>
   );
 }
 

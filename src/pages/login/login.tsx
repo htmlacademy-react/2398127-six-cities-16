@@ -3,16 +3,18 @@ import { Helmet } from 'react-helmet-async';
 import {useRef, FormEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
+import { Link } from 'react-router-dom';
+import { Cities } from '../../const.ts';
+import { changeCity } from '../../store/cities-process/cities-process.ts';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
+  const randomCity = Object.values(Cities)[Math.floor(Math.random() * Object.entries(Cities).length)];
 
   const submitFormHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
     if(emailRef.current !== null && passwordRef !== null) {
       dispatch(loginAction({
         email: emailRef.current.value,
@@ -20,10 +22,11 @@ function Login(): JSX.Element {
       }));
     }
   };
-  return(
+
+  return (
     <div className="page page--gray page--login">
       <Helmet>
-        <title>6 cities — Login</title>
+        <title>6 cities. Login</title>
       </Helmet>
       <header className="header">
         <div className="container">
@@ -66,9 +69,12 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to="/" onClick={() => {
+                dispatch(changeCity(randomCity));
+              }}
+              >
+                <span>{randomCity.name}</span>
+              </Link>
             </div>
           </section>
         </div>

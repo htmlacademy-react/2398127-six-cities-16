@@ -25,7 +25,7 @@ function OfferCard({offer, cardClickHandler, cardHoverHandler}: OfferCardProps):
     try {
       if (authorizationStatus === AuthorizationStatus.Auth) {
         setIsUpdating(true);
-        store.dispatch(updateOfferFavoriteStatusAction({offer, favoriteStatus}));
+        store.dispatch(updateOfferFavoriteStatusAction({id: offer.id, favoriteStatus}));
         setFavoriteStatus(!favoriteStatus);
       } else {
         navigate(AppRoute.Login);

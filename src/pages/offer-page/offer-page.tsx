@@ -1,19 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import { Offer } from '../../types/offer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Comments from '../../components/comments/comments.tsx';
 import OfferCards from '../../components/offer-card/offer-cards';
 import Map from '../../components/map/map.tsx';
-import { OffersClassName, STARS } from '../../const.ts';
+import { AppRoute, AuthorizationStatus, OffersClassName, STARS } from '../../const.ts';
 import { store } from '../../store/index.ts';
 import Header from '../../components/header/header.tsx';
 import Loader from '../../components/loader/loader.tsx';
 import { useAppSelector } from '../../hooks/index.ts';
-import { fetchCommentsAction, fetchCurrentOfferAction, fetchNearOfferAction } from '../../store/api-actions.ts';
-import { useEffect } from 'react';
+import { fetchCommentsAction, fetchCurrentOfferAction, fetchNearOfferAction, updateOfferFavoriteStatusAction } from '../../store/api-actions.ts';
+import { useEffect, useState } from 'react';
 import PageNotFound from '../page-not-found/page-not-found.tsx';
 import { getCurrentCity } from '../../store/cities-process/selectors.ts';
 import { getCurrentOffer, getNearOffers, getOffersLoadingStatus } from '../../store/offer-data/selectors.ts';
+import { getAuthorizationStatus } from '../../store/user-process/selectors.ts';
 
 type OfferPageProps = {
   selectedCard: Offer | undefined;
@@ -22,6 +23,8 @@ type OfferPageProps = {
 }
 function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPageProps): JSX.Element {
   const { id: currentId } = useParams();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
   useEffect(() => {
     if (currentId) {
       store.dispatch(fetchCommentsAction(currentId));
@@ -34,19 +37,41 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
   const currentCity = useAppSelector(getCurrentCity);
   const currentOffer = useAppSelector(getCurrentOffer);
   const nearOffers = useAppSelector(getNearOffers);
+  const [favoriteStatus, setFavoriteStatus] = useState(currentOffer?.isFavorite);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+  useEffect(() => {
+    setFavoriteStatus(currentOffer?.isFavorite);
+  }, [currentOffer]);
+
   if (isOffersLoading) {
     return <Loader />;
   }
   if (currentOffer) {
-    const { title, type, price, isFavorite, isPremium, rating, description, goods, host, maxAdults, bedrooms, images, id } = currentOffer;
+    const { title, type, price, isPremium, rating, description, goods, host, maxAdults, bedrooms, images, id } = currentOffer;
     const ratingScale = rating * 100 / STARS.length;
-    return(
-      <div className="page">
+    const toggleFavoriteStatusHandler = () => {
+      setFavoriteStatus(!favoriteStatus);
+      try {
+        setIsUpdating(true);
+        if (authorizationStatus === AuthorizationStatus.Auth) {
+          store.dispatch(updateOfferFavoriteStatusAction({ id, favoriteStatus: favoriteStatus ? favoriteStatus : false }));
+        } else {
+          navigate(AppRoute.Login);
+        }
+      } catch (error) {
+        setFavoriteStatus(!favoriteStatus);
+      } finally {
+        setIsUpdating(false);
+      }
+    };
+
+    return (
+      <div className="page" data-testid="offerPage">
         <Helmet>
-          <title>6 cities — Offer</title>
+          <title>6 cities. Offer</title>
         </Helmet>
         <Header />
-
         <main className="page__main page__main--offer">
           <section className="offer">
             <div className="offer__gallery-container container">
@@ -68,11 +93,16 @@ function OfferPage({selectedCard, cardClickHandler, cardHoverHandler}: OfferPage
                   <h1 className="offer__name">
                     {title}
                   </h1>
-                  <button className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`} type="button">
+                  <button
+                    className={`offer__bookmark-button button ${favoriteStatus ? 'offer__bookmark-button--active' : ''}`}
+                    type="button"
+                    onClick={toggleFavoriteStatusHandler}
+                    disabled={isUpdating}
+                  >
                     <svg className="offer__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>
                     </svg>
-                    <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+                    <span className="visually-hidden">{favoriteStatus ? 'In bookmarks' : 'To bookmarks'}</span>
                   </button>
                 </div>
                 <div className="offer__rating rating">
