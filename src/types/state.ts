@@ -4,9 +4,6 @@ import { Comment } from './comment.js';
 import { CurrentOffer, Offer, City } from './offer.js';
 import { UserData } from './user-data.js';
 
-export type State = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
   user: UserData | null;
@@ -36,3 +33,6 @@ export type CitiesProcess = {
 export type ErrorsProcess = {
   error: string | null;
 };
+
+export type State = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

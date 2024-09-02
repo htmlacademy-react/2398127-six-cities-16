@@ -25,6 +25,8 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+
       const markerLayer = layerGroup().addTo(map);
       points.forEach((point) => {
         const marker = new Marker({
@@ -39,8 +41,10 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
               : defaultCustomIcon
           )
           .addTo(map);
+
         markers.push(marker);
       });
+
 
       return () => {
         map.removeLayer(markerLayer);
@@ -50,7 +54,8 @@ function Map({city, points, selectedCard}: MapProps): JSX.Element {
         map.setView(new LatLng(city.location.latitude, city.location.longitude), city.location.zoom);
       };
     }
-  }, [map, points, selectedCard]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city, points, selectedCard, map]);
 
   return (
     <div

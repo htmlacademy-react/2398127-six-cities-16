@@ -18,7 +18,7 @@ function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): 
   const favoriteButtonClickHandler = () => {
     try {
       setIsUpdating(true);
-      store.dispatch(updateOfferFavoriteStatusAction({offer, favoriteStatus}));
+      store.dispatch(updateOfferFavoriteStatusAction({id: offer.id, favoriteStatus}));
       setFavoriteStatus(!favoriteStatus);
     } catch (err) {
       setError('Cant update status');
@@ -37,7 +37,7 @@ function OfferCardFavorite({offer, cardClickHandler} : OfferCardFavoriteProps): 
           <span>Premium</span>
         </div> : ''}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offer}/${id}`}>
+        <Link to="/">
           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
         </Link>
       </div>

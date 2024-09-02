@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../const.ts';
 import { useAppSelector } from '../../hooks/index.ts';
 import CommentForm from '../comment-form/comment-form.tsx';
@@ -19,15 +19,18 @@ function Comments(): JSX.Element {
     setComments(currentComments);
   }, [currentComments]);
 
-  const addCommentHandler = async (commentData: NewComment) => {
-    const {payload} = await store.dispatch(postCommentAction(commentData));
-    if (payload) {
-      const newComment = convertToComment(payload);
-      if (newComment) {
-        setComments((prevComments) => [...prevComments, newComment]);
+  const addCommentHandler = useCallback(
+    async (commentData: NewComment) => {
+      const {payload} = await store.dispatch(postCommentAction(commentData));
+      if (payload) {
+        const newComment = convertToComment(payload);
+        if (newComment) {
+          return setComments((prevComments) => [...prevComments, newComment]);
+        }
       }
-    }
-  };
+    },
+    []
+  );
 
   return (
     <section className="offer__reviews reviews">

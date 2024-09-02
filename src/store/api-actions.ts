@@ -3,13 +3,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { CurrentOffer, Offer } from '../types/offer';
 import { redirectToRoute } from './action';
-import { AppRoute, APIRoute, TIMEOUT_SHOW_ERROR } from '../const';
+import { AppRoute, APIRoute } from '../const';
 import { AuthData } from '../types/auth-data.ts';
 import { UserData } from '../types/user-data.ts';
 import { saveToken, dropToken } from '../services/token';
-import { store } from './';
 import { Comment, NewComment } from '../types/comment';
-import { setError } from './errors-process/errors-process';
 
 export const APIAction = {
   FETCH_OFFERS: 'FETCH_OFFERS',
@@ -25,15 +23,15 @@ export const APIAction = {
   UPDATE_OFFER_FAVORITE_STATUS: 'UPDATE_OFFER_FAVORITE_STATUS',
 };
 
-export const updateOfferFavoriteStatusAction = createAsyncThunk<Offer[], {offer: Offer; favoriteStatus: boolean}, {
+export const updateOfferFavoriteStatusAction = createAsyncThunk<Offer[], {id: string; favoriteStatus: boolean}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   APIAction.UPDATE_OFFER_FAVORITE_STATUS,
-  async ({offer, favoriteStatus}, {extra: api}) => {
+  async ({id, favoriteStatus}, {extra: api}) => {
     const status = favoriteStatus ? 0 : 1;
-    await api.post<Offer[]>(`${APIRoute.Favorite}/${offer.id}/${status}`);
+    await api.post<Offer[]>(`${APIRoute.Favorite}/${id}/${status}`);
     const { data } = await api.get<Offer[]>(APIRoute.Offers);
     return data;
   }
@@ -150,12 +148,3 @@ export const postCommentAction = createAsyncThunk<Comment | void, NewComment, {
   }
 );
 
-export const clearErrorAction = createAsyncThunk(
-  APIAction.CLEAR_ERROR,
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR
-    );
-  }
-);

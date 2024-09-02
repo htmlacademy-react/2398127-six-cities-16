@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import OfferCards from '../../components/offer-card/offer-cards';
 import { useAppSelector } from '../../hooks/index.ts';
@@ -49,9 +50,9 @@ function Favorites({cardClickHandler, cardHoverHandler}: FavoritesProps): JSX.El
                                 <li className="favorites__locations-items" key={city.name}>
                                   <div className="favorites__locations locations locations--current">
                                     <div className="locations__item">
-                                      <a className="locations__item-link" href="#">
+                                      <Link className="locations__item-link" to="">
                                         <span>{city.name}</span>
-                                      </a>
+                                      </Link>
                                     </div>
                                   </div>
                                   <OfferCards
@@ -72,9 +73,9 @@ function Favorites({cardClickHandler, cardHoverHandler}: FavoritesProps): JSX.El
                 </div>
               </main>
               <footer className="footer container">
-                <a className="footer__logo-link" href="main.html">
+                <Link className="footer__logo-link" to="/">
                   <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-                </a>
+                </Link>
               </footer>
             </>
           )

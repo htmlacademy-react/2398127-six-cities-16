@@ -1,5 +1,6 @@
-import { useAppSelector } from '../../hooks';
+/* eslint-disable react-refresh/only-export-components */
 import { ChangeEvent, Fragment, useEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks';
 import { AppRoute, StarNames } from '../../const';
 import { NewComment } from '../../types/comment';
 import { getCurrentOffer } from '../../store/offer-data/selectors';
@@ -26,6 +27,7 @@ function CommentForm({formSubmitHandler}: CommentFormProps) {
     };
 
     clearInputs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const textChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {

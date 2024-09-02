@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../const.ts';
 import { UserProcess } from '../../types/state.ts';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions.ts';
-import { UserData } from '../../types/user-data.ts';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -12,12 +11,7 @@ const initialState: UserProcess = {
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
-  reducers: {
-    loadUserData: (state, action: PayloadAction<{user: UserData}>) => {
-      const { user } = action.payload;
-      state.user = user;
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(checkAuthAction.fulfilled, (state, action) => {
